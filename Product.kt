@@ -1,4 +1,4 @@
-class Product {
+open class Product {
 
     var Id: Int = 0
     var Name: String = ""
