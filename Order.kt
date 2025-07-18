@@ -1,8 +1,5 @@
-class Order : Product() {
-
-    var orderStatus : OrderStatus? = null
-    var price : Double = 0.0
-    var discountPercentage : Double = 0.0
+class Order(Id: Int, Name: String, TaxRate: Double, var orderStatus : OrderStatus = OrderStatus.PROCESSING, var price : Double, var discountPercentage : Double):Product(Id, Name, TaxRate)
+{
 
     fun printDetails()
     {
@@ -11,21 +8,40 @@ class Order : Product() {
 
     companion object
     {
-        fun OrdersDispatched()
+        fun OrdersDispatched(): MutableList<Order>
         {
-
+            if(OrderDataModel.orderDataDictionary.containsKey(OrderStatus.DISPATCHED))
+            {
+               return OrderDataModel.orderDataDictionary.getValue(OrderStatus.DISPATCHED)
+            }
+            return mutableListOf<Order>()
         }
 
-        fun OrdersDelivered()
+        fun OrdersDelivered(): MutableList<Order>
         {
-
+            if(OrderDataModel.orderDataDictionary.containsKey(OrderStatus.DELIVERED))
+            {
+                return OrderDataModel.orderDataDictionary.getValue(OrderStatus.DELIVERED)
+            }
+            return mutableListOf<Order>()
         }
 
-        fun OrdersProcessing()
+        fun OrdersProcessing(): MutableList<Order>
         {
-
+            if(OrderDataModel.orderDataDictionary.containsKey(OrderStatus.PROCESSING))
+            {
+                return OrderDataModel.orderDataDictionary.getValue(OrderStatus.PROCESSING)
+            }
+            return mutableListOf<Order>()
         }
     }
+
+
+    override fun toString():String
+    {
+        return "Order { Id: ${Id}, Name: ${Name}, Price: ${price}, Discount: ${discountPercentage}, Tax: ${TaxRate}, Status: ${orderStatus} }"
+    }
+
 
 }
 
